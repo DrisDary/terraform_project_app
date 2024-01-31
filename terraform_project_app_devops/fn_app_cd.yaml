@@ -1,0 +1,10 @@
+steps:
+- task: AzureFunctionApp@2
+  displayName: 'Azure Function App Deploy: dcpnpeus2dev01functionapp01'
+  inputs:
+    connectedServiceNameARM: 'AzureSubConn'
+    appType: functionAppLinux
+    appName: fn-devops-project-002
+    runtimeStack: 'PYTHON|3.8'
+
+

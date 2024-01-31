@@ -1,0 +1,30 @@
+trigger:
+- main
+
+name: "$(Build.DefinitionName)$(Rev:.r)"
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+steps:
+
+- task: UsePythonVersion@0
+  displayName: 'Use Python 3.8'
+  inputs:
+    versionSpec: 3.8
+
+- bash: |
+   cd terraform_project_app
+   pip3.8 install --target=".python_packages/lib/site-packages" -r requirements.txt
+  displayName: 'Install Application Dependencies'
+
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/terraform_project_app'
+    includeRootFolder: false
+    verbose: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
